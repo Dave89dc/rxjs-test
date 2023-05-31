@@ -1,0 +1,28 @@
+import { Component, OnInit } from '@angular/core';
+import { counterValue } from 'src/app/model/counter-value';
+import { DataServiceService } from 'src/app/services/data-service/data-service.service';
+
+@Component({
+  selector: 'app-third',
+  templateUrl: './third.component.html',
+  styleUrls: ['./third.component.scss']
+})
+export class ThirdComponent implements OnInit {
+
+  increments: counterValue[] = [];
+
+  constructor(public dataServ: DataServiceService){}
+
+  ngOnInit(): void {
+    this.dataServ.counterValuesSubject.subscribe(counterValues => {
+      this.increments = [];
+      for (let i = 0; i < counterValues.length; i++) {
+        const counterValue = counterValues[i];
+        if(counterValue.type === 'increment' || counterValue.type === 'start'){
+          this.increments.push(counterValue)
+        }
+      }
+    })
+  }
+
+}

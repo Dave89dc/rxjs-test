@@ -53,6 +53,7 @@ export interface Language3 {
 }
 
 export interface Pokemon {
+  abilities: any
   is_hidden: boolean
   pokemon: Pokemon2
   slot: number
